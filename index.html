@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2022 Countdown</title>
+    <!-- favicon -->
+    <link rel="shortcut icon" href="./countdown.ico">
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@1,900&family=Source+Sans+Pro:wght@700&family=Vollkorn:ital,wght@1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css.css">
+</head>
+
+<body>
+
+    <div class="digiFont">
+        <p>Countdown to New Year 2022</p>
+        <p id="dDay">365days</p>
+        <p id="dTime">12hours 12minutes 12seconds</p>
+    </div>
+
+
+
+    <script>
+        //倒數日(Dday是2021/12/31 23:59:59)
+        function dDay() {
+            let now = Date();
+            let time = new Date();
+            let custime = new Date("2021-12-31T23:59:59");
+            // console.log(now);
+            // console.log(custime);
+
+            let todyTime = time.getTime(); //getTime()得到時間戳記 單位是毫秒
+            // 1624435803414 現在時間
+            let dDayTime = custime.getTime();
+            // 1640966399000 跨年時間
+
+            let all = Math.floor((dDayTime - todyTime) / 1000); //除1000換算成總秒數
+            // console.log(all);
+            //總秒:Math.floor(16530595586/1000); 16530595
+
+            //秒:Math.floor(1653059%60) //一小時60分鐘 餘數就是秒(%60) 100秒/60秒 = 1...40 => 1分40秒
+            let secs = Math.floor(all % 60)
+            //總分:Math.floor(16530595/60)
+            // 分:Math.floor(16530595/60%60)
+            let mins = Math.floor(all / 60 % 60)
+            // 總時:Math.floor(16530595/60/60)
+            // 時:Math.floor(16530595/60%60)
+            let hours = Math.floor(all / 60 / 60 % 24)
+            // 總天:Math.floor(16530595/60/60/24)
+            let days = Math.floor(all / 60 / 60 / 24)
+
+            // console.log(`現在距離跨年還有${days}天${hours}時${mins}分${secs}秒`);
+
+            document.getElementById("dDay").textContent = `${days}days`;
+            document.getElementById("dTime").textContent = `${hours}hours ${mins}minutes ${secs}seconds`;
+        }
+
+        setInterval(dDay, 1000);
+
+        dDay();
+    </script>
+
+</body>
+
+</html>
